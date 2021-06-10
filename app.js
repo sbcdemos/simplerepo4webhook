@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
             'Content-Type': 'application/json'
         },
         'isBase64Encoded': false,
-        'body': 'NEW FUNCTION CREATED VIA API',
+        'body': 'NEW FUNCTION CREATED VIA API (1)',
     }
     return output;
 }
