@@ -1,3 +1,5 @@
+let mysql = require('mysql');
+
 exports.handler = async (event, context) => {
     console.log(event);
     const output =
