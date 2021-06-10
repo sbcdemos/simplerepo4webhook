@@ -10,6 +10,7 @@ exports.handler = async (event, context) => {
       password : 'secret',
       database : 'mydb'
     });
+    connection.connect();
     
     const output =
     {
