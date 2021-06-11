@@ -47,5 +47,5 @@ function executeQuery(connection, query){
         catch (e){
             reject(e);
         }
-    }
+    })
 }
