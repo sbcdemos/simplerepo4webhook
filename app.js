@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
       });
       
     connection.end();
-    
+
     const output =
     {
         'statusCode': 200,
@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
             'Content-Type': 'application/json'
         },
         'isBase64Encoded': false,
-        'body': 'NEW FUNCTION CREATED VIA API (3)'
+        'body': 'NEW FUNCTION CREATED VIA API (4)'
     }
     return output;
 }
