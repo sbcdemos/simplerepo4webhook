@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
             'Content-Type': 'text/plain'
         },
         'isBase64Encoded': false,
-        'body': 'JUST AN EMPTY OUTPUT'
+        'body': 'JUST AN EMPTY OUTPUT (text-plain)'
     }
     return output;
 }
