@@ -12,11 +12,15 @@ exports.handler = async (event, context) => {
     });
     connection.connect();
     
-    connection.query('SELECT count(*) as solution from clients', function (error, results, fields) {
+    
+/*    connection.query('SELECT count(*) as solution from clients', function (error, results, fields) {
         if (error) throw error;
         console.log('Number of clients is: ', results[0].solution);
       });
-      
+  */
+    let results = await executeQuery(connection, 'SELECT count(*) as solution from clients');
+    console.log('Number of clients is: ', results[0].solution);
+
     connection.end();
 
     const output =
@@ -27,7 +31,21 @@ exports.handler = async (event, context) => {
             'Content-Type': 'application/json'
         },
         'isBase64Encoded': false,
-        'body': 'NEW FUNCTION CREATED VIA API (5)'
+        'body': 'The number of clients is'+results[0].solution
     }
     return output;
+}
+
+function executeQuery(connection, query){
+    return new Promise(function(resolve, reject) {
+        try {
+            connection.query(query, function (error, results, fields) {
+                if (error) throw error;
+                resolve(results);
+              });
+        }
+        catch (e){
+            reject(e);
+        }
+    }
 }
