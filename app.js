@@ -12,9 +12,9 @@ exports.handler = async (event, context) => {
     });
     connection.connect();
     
-    connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+    connection.query('SELECT count(*) as solution from clients', function (error, results, fields) {
         if (error) throw error;
-        console.log('The solution is: ', results[0].solution);
+        console.log('Number of clients is: ', results[0].solution);
       });
       
     connection.end();
