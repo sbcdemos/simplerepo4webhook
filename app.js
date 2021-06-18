@@ -31,7 +31,7 @@ exports.handler = async (event, context) => {
             'Content-Type': 'application/json'
         },
         'isBase64Encoded': false,
-        'body': '###The number of clients is'+results[0].solution
+        'body': '####The number of clients is'+results[0].solution
     }
     return output;
 }
