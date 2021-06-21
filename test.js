@@ -2,6 +2,7 @@ exports.handler = async (event, context) => {
     console.log(eventBody);
     //HTTPMethod: eventBody.httpMethod?
 
+
     const output =
     {
         'statusCode': 200,
