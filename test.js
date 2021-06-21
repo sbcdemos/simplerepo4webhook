@@ -1,6 +1,7 @@
 exports.handler = async (event, context) => {
     var eventBody = JSON.parse(event);
     console.log(eventBody);
+    //HTTPMethod: eventBody.httpMethod?
 
     const output =
     {
