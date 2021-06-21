@@ -1,5 +1,5 @@
 exports.handler = async (event, context) => {
-    console.log(eventBody);
+    console.log(event);
     //HTTPMethod: eventBody.httpMethod?
 
 
