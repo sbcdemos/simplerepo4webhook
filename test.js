@@ -1,5 +1,4 @@
 exports.handler = async (event, context) => {
-    var eventBody = JSON.parse(event);
     console.log(eventBody);
     //HTTPMethod: eventBody.httpMethod?
 
@@ -8,10 +7,10 @@ exports.handler = async (event, context) => {
         'statusCode': 200,
         'headers':
         {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
         },
         'isBase64Encoded': false,
-        'body': 'JUST AN EMPTY OUTPUT (text-plain)'
+        'body': JSON.stringify(event)
     }
     return output;
 }
