@@ -49,7 +49,7 @@ exports.handler = async (event, context) => {
         case "PUT":
             controllerOutput = await updateProduct(connection, eventBody);
             break;
-            
+
         case "DELETE":
             controllerOutput = await deleteProduct(connection, event.pathParameters)
             break;
@@ -67,7 +67,7 @@ exports.handler = async (event, context) => {
             'Content-Type': controllerOutput.contentType
         },
         'isBase64Encoded': false,
-        'body': JSON.stringify(controllerOutput.body)
+        'body': (typeof controllerOutput.body)==='string' ? controllerOutput.body : JSON.stringify(controllerOutput.body)
     }
     console.log(output)
     return output;
