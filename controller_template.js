@@ -78,7 +78,8 @@ async function getProducts(connection, searchForName)
     var SQL = "select * from products limit 100";
     if (searchForName)
     {
-        SQL = SQL +" where name like '?%'";
+        SQL = SQL +" where name like ?";
+        searchForName=searchForName+'%';
     }
     const products = await executeQuery(connection, SQL, [searchForName]);
     console.log(products);
