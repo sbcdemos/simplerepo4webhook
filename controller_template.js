@@ -51,6 +51,7 @@ exports.handler = async (event, context) => {
             break;
 
         case "DELETE":
+            console.log(event.pathParameters);
             controllerOutput = await deleteProduct(connection, event.pathParameters)
             break;
         default:
