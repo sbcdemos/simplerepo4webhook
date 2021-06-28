@@ -73,6 +73,7 @@ exports.handler = async (event, context) => {
         'isBase64Encoded': false,
         'body': controllerOutput.body
     }
+    console.log(output)
     return output;
 }
 
@@ -84,6 +85,7 @@ async function getProducts(connection, searchForName)
         SQL = SQL +" where name like '?%'";
     }
     const products = await executeQuery(connection, SQL, [searchForName]);
+    console.log(products);
     return {
         body: products,
         contentType: 'application/json'
@@ -123,13 +125,22 @@ async function deleteProduct(connection, productId)
 
 //Special function to "promisify" query execution
 function executeQuery(connection, querySQL, queryParams){
+    console.log("Query params: "+queryParams);
+    console.log("SQL: "+querySQL);
     return new Promise(function(resolve, reject) {
         try {
-            connection.query(querySQL, queryParams, function (error, results, fields) {
-                if (error) throw error;
-                resolve(results);
-              });
-        }
+            if (queryParams){
+                connection.query(querySQL, queryParams, function (error, results, fields) {
+                    if (error) throw error;
+                    resolve(results);
+                });
+            }
+            else
+                connection.query(querySQL,function (error, results, fields) {
+                    if (error) throw error;
+                    resolve(results);
+                });
+    }
         catch (e){
             reject(e);
         }
