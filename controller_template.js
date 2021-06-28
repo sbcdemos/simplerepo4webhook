@@ -75,12 +75,13 @@ exports.handler = async (event, context) => {
 
 async function getProducts(connection, searchForName)
 {
-    var SQL = "select * from products limit 100";
+    var SQL = "select * from products ";
     if (searchForName)
     {
         SQL = SQL +" where name like ?";
         searchForName=searchForName+'%';
     }
+    SQL = SQL + ' limit 100';
     const products = await executeQuery(connection, SQL, [searchForName]);
     console.log(products);
     return {
