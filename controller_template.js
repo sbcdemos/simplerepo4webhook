@@ -58,7 +58,8 @@ exports.handler = async (event, context) => {
                 }
         }
     }
-    catch(e){
+    catch(e)
+    {
         console.log("FAILED:"+e)
     }
     const output =
