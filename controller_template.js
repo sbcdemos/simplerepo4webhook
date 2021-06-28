@@ -75,7 +75,7 @@ exports.handler = async (event, context) => {
 
 async function getProducts(connection, searchForName)
 {
-    var SQL = "select * from products";
+    var SQL = "select * from products limit 100";
     if (searchForName)
     {
         SQL = SQL +" where name like '?%'";
