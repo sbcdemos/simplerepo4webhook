@@ -35,7 +35,6 @@ exports.handler = async (event, context) => {
     connection.connect();
     /*
     Typical CRUD controller: action depends on HTTP method
-    
     */
     console.log("HTTP method: "+event.httpMethod);
     try {
