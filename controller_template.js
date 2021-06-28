@@ -40,17 +40,17 @@ exports.handler = async (event, context) => {
     try {
         switch (event.httpMethod) {
             case "GET":
-                controllerOutput = getProducts(connection, query.name);
+                controllerOutput = await getProducts(connection, query.name);
                 break;
-                
+
             case "POST":
-                controllerOutput = createProduct(connection, eventBody);
+                controllerOutput = await createProduct(connection, eventBody);
                 break;
             case "PUT":
-                controllerOutput = updateProduct(connection, eventBody);
+                controllerOutput = await updateProduct(connection, eventBody);
                 break;
             case "DELETE":
-                controllerOutput = deleteProduct(connection, event.pathParameters)
+                controllerOutput = await deleteProduct(connection, event.pathParameters)
                 break;
             default:
                 controllerOutput = {
@@ -76,7 +76,7 @@ exports.handler = async (event, context) => {
     return output;
 }
 
-function getProducts(connection, searchForName)
+async function getProducts(connection, searchForName)
 {
     const SQL = "select * from products";
     if (!searchForName)
@@ -90,7 +90,7 @@ function getProducts(connection, searchForName)
     }
 }
 
-function createProduct(connection, product)
+async function createProduct(connection, product)
 {
     const SQL = "insert into Products (Name, Description, Price) values (?, ?, ?);";
     const result = await executeQuery(connection, SQL, [product.name, product.description, product.price]);
@@ -101,7 +101,7 @@ function createProduct(connection, product)
     }
 }
 
-function updateProduct(connection, product)
+async function updateProduct(connection, product)
 {
     const SQL = "update Products set Name = ?, description = ?, price = ? where ID=?";
     const result = await executeQuery(connection, SQL, [product.name, product.description, product.price, product.id]);
@@ -111,7 +111,7 @@ function updateProduct(connection, product)
     }
 }
 
-function deleteProduct(connection, productId)
+async function deleteProduct(connection, productId)
 {
     const SQL = "delete from Products where ID=?";
     const result = await executeQuery(connection, SQL, [productId]);
