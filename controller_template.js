@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
                     
 
     */
-    const eventBody = JSON.parse(Buffer.from(event.body, 'base64').toString('ascii'))
+    const eventBody = event.body ? JSON.parse(Buffer.from(event.body, 'base64').toString('ascii')): {}
 
     var controllerOutput={
         body: {},
