@@ -42,6 +42,7 @@ exports.handler = async (event, context) => {
             case "GET":
                 controllerOutput = getProducts(connection, query.name);
                 break;
+                
             case "POST":
                 controllerOutput = createProduct(connection, eventBody);
                 break;
