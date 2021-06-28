@@ -40,7 +40,7 @@ exports.handler = async (event, context) => {
     try {
         switch (event.httpMethod) {
             case "GET":
-                controllerOutput = await getProducts(connection, query.name);
+                controllerOutput = await getProducts(connection, event.queryStringParameters.name);
                 break;
 
             case "POST":
@@ -71,7 +71,7 @@ exports.handler = async (event, context) => {
             'Content-Type': controllerOutput.contentType
         },
         'isBase64Encoded': false,
-        'body': controllerOutput.body
+        'body': JSON.stringify(controllerOutput.body)
     }
     console.log(output)
     return output;
