@@ -75,8 +75,8 @@ exports.handler = async (event, context) => {
 
 async function getProducts(connection, searchForName)
 {
-    const SQL = "select * from products";
-    if (!searchForName)
+    var SQL = "select * from products";
+    if (searchForName)
     {
         SQL = SQL +" where name like '?%'";
     }
@@ -125,18 +125,11 @@ function executeQuery(connection, querySQL, queryParams){
     console.log("SQL: "+querySQL);
     return new Promise(function(resolve, reject) {
         try {
-            if (queryParams){
-                connection.query(querySQL, queryParams, function (error, results, fields) {
-                    if (error) throw error;
-                    resolve(results);
-                });
-            }
-            else
-                connection.query(querySQL,function (error, results, fields) {
-                    if (error) throw error;
-                    resolve(results);
-                });
-    }
+            connection.query(querySQL, queryParams, function (error, results, fields) {
+                if (error) throw error;
+                resolve(results);
+            });
+        }
         catch (e){
             reject(e);
         }
