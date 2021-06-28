@@ -45,10 +45,11 @@ exports.handler = async (event, context) => {
         case "POST":
             controllerOutput = await createProduct(connection, eventBody);
             break;
-            
+
         case "PUT":
             controllerOutput = await updateProduct(connection, eventBody);
             break;
+            
         case "DELETE":
             controllerOutput = await deleteProduct(connection, event.pathParameters)
             break;
