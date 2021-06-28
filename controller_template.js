@@ -37,31 +37,25 @@ exports.handler = async (event, context) => {
     Typical CRUD controller: action depends on HTTP method
     */
     console.log("HTTP method: "+event.httpMethod);
-    try {
-        switch (event.httpMethod) {
-            case "GET":
-                controllerOutput = await getProducts(connection, event.queryStringParameters.name);
-                break;
+    switch (event.httpMethod) {
+        case "GET":
+            controllerOutput = await getProducts(connection, event.queryStringParameters.name);
+            break;
 
-            case "POST":
-                controllerOutput = await createProduct(connection, eventBody);
-                break;
-            case "PUT":
-                controllerOutput = await updateProduct(connection, eventBody);
-                break;
-            case "DELETE":
-                controllerOutput = await deleteProduct(connection, event.pathParameters)
-                break;
-            default:
-                controllerOutput = {
-                    body: "Unrecognized command",
-                    contentType: "text/plain"
-                }
-        }
-    }
-    catch(e)
-    {
-        console.log("FAILED:"+e)
+        case "POST":
+            controllerOutput = await createProduct(connection, eventBody);
+            break;
+        case "PUT":
+            controllerOutput = await updateProduct(connection, eventBody);
+            break;
+        case "DELETE":
+            controllerOutput = await deleteProduct(connection, event.pathParameters)
+            break;
+        default:
+            controllerOutput = {
+                body: "Unrecognized command",
+                contentType: "text/plain"
+            }
     }
     const output =
     {
