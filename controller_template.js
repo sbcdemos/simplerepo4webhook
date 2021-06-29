@@ -1,9 +1,9 @@
-//import secion. Put your dependencies here
+//import secion. Request your dependencies here
 let mysql = require('mysql');
 
 //Main function, that receive events. The controller code functions are defined later
 exports.handler = async (event, context) => {
-    /*Where to get information for controller?
+    /*Where to get information for controller
         HTTPMethod: event.httpMethod
         extra path: event.pathParameters[""]. For example, if your api is located at /api/function/ path and
                     you are calling /api/function/details/123, then event.pathParameters[""] 
@@ -39,7 +39,17 @@ exports.handler = async (event, context) => {
     console.log("HTTP method: "+event.httpMethod);
     switch (event.httpMethod) {
         case "GET":
-            controllerOutput = await getProducts(connection, event.queryStringParameters.name);
+            //GET could mean "Get list" and "Get One"
+            if (event.pathParameters[""])  
+            {
+                //When pathParameters is not empty, then we have url like /api/products/{id}
+                controllerOutput = await getProductDetails(connection, event.pathParameters[""])
+            }
+            else
+            {
+                //When nothing in the path - we are looking for the list
+                controllerOutput = await getProducts(connection, event.queryStringParameters.name);
+            }
             break;
 
         case "POST":
@@ -87,6 +97,15 @@ async function getProducts(connection, searchForName)
     console.log(products);
     return {
         body: products,
+        contentType: 'application/json'
+    }
+}
+async function getProductDetails(connection, productId)
+{
+    var SQL = "select * from products where ID=?";
+    const productData = await executeQuery(connection, SQL, [productId]);
+    return {
+        body: productData,
         contentType: 'application/json'
     }
 }
