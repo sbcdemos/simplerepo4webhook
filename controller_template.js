@@ -105,7 +105,7 @@ async function getProductDetails(connection, productId)
     var SQL = "select * from products where ID=?";
     const productData = await executeQuery(connection, SQL, [productId]);
     return {
-        body: productData,
+        body: productData.length>=1? productData[0] : {},
         contentType: 'application/json'
     }
 }
