@@ -36,7 +36,6 @@ exports.handler = async (event, context) => {
     /*
     Typical CRUD controller: action depends on HTTP method
     */
-    console.log("HTTP method: "+event.httpMethod);
     switch (event.httpMethod) {
         case "GET":
             //GET could mean "Get list" and "Get One"
@@ -61,7 +60,6 @@ exports.handler = async (event, context) => {
             break;
 
         case "DELETE":
-            console.log(event.pathParameters);
             controllerOutput = await deleteProduct(connection, event.pathParameters[""])
             break;
         default:
@@ -80,7 +78,6 @@ exports.handler = async (event, context) => {
         'isBase64Encoded': false,
         'body': (typeof controllerOutput.body)==='string' ? controllerOutput.body : JSON.stringify(controllerOutput.body)
     }
-    console.log(output)
     return output;
 }
 
@@ -94,7 +91,6 @@ async function getProducts(connection, searchForName)
     }
     SQL = SQL + ' limit 100';
     const products = await executeQuery(connection, SQL, [searchForName]);
-    console.log(products);
     return {
         body: products,
         contentType: 'application/json'
@@ -143,8 +139,6 @@ async function deleteProduct(connection, productId)
 
 //Special function to "promisify" query execution
 function executeQuery(connection, querySQL, queryParams){
-    console.log("Query params: "+queryParams);
-    console.log("SQL: "+querySQL);
     return new Promise(function(resolve, reject) {
         try {
             connection.query(querySQL, queryParams, function (error, results, fields) {
